@@ -1,34 +1,26 @@
-import { Button } from "./components/ui/button";
+import { Route, Routes } from "react-router-dom";
 import "./index.css";
+import HomePage from "./pages/home/HomePage.tsx";
+import AuthCallbackPage from "./pages/auth-callback/AuthCallbackPage.tsx";
+import { axiosInstance } from "./lib/axios.tsx";
+import { AuthenticateWithRedirectCallback } from "@clerk/clerk-react";
 
-import {
-  Show,
-  SignInButton,
-  SignUpButton,
-  UserButton,
-} from "@clerk/react";
 
 function App() {
-  return (
-    <header>
-      <Show when="signed-out">
-        <SignInButton>
-          <Button>
-            Sign In
-          </Button>
-        </SignInButton>
-         
-        <SignUpButton >
-          <Button>
-            Sign Up
-          </Button>
-        </SignUpButton>
-      </Show>
+ 
 
-      <Show when="signed-in">
-        <UserButton />
-      </Show>
-    </header>
+
+
+  return (
+    <>
+     <Routes>
+       <Route path="/" element={<HomePage />} />
+       <Route path="/sso-callback" element={<AuthenticateWithRedirectCallback 
+       signInForceRedirectUrl={"/auth-callback"}
+       />} />
+       <Route path="/auth-callback" element={<AuthCallbackPage />} />
+     </Routes>
+    </>
   );
 }
 

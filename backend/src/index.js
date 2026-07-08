@@ -13,15 +13,25 @@ import statRoutes from './routes/stat.route.js'
 import { connectDB } from "./lib/db.js";
 import fileupload from 'express'
 
+import cors from 'cors';
+
 
 
 dotenv.config();
 const __dirname = path.resolve();
 const app = express();
-const PORT = process.env.port;
+const PORT = process.env.PORT;
 
 
 
+
+
+app.use(cors(
+    {
+        origin: "http://localhost:3000",
+        credentials: true,
+    }
+));
 app.use(express.json()); // to pass req body
 app.use(clerkMiddleware())
 
